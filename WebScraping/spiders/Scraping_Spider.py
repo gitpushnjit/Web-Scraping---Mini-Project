@@ -2,8 +2,9 @@ import scrapy
 from ..items import WebscrapingItem
 class ScrapingSpider(scrapy.Spider):
     name='scrape'
+    pageNum=2
     start_urls=[
-        'http://quotes.toscrape.com/'
+        'http://quotes.toscrape.com/page/1/'
     ]
 
     def parse(self, response):
@@ -23,3 +24,11 @@ class ScrapingSpider(scrapy.Spider):
             yield items
          # title=response.css('title::text').extract()
          # yield {'TextTitle':title}
+
+        nextPage='http://quotes.toscrape.com/page/'+str(ScrapingSpider.pageNum)+'/'
+
+
+        if ScrapingSpider.pageNum<11:
+            ScrapingSpider.pageNum+=1
+            yield response.follow(nextPage, callback=self.parse)
+
