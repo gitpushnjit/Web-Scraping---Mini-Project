@@ -16,7 +16,7 @@ class WebscrapingPipeline(object):
         self.conn=mysql.connector.connect(
             host= 'localhost',
             user='root',
-            passwd='PushMySQL@02',
+            passwd='************',
             database='webscrapingquotes'
         )
         self.cur=self.conn.cursor()
